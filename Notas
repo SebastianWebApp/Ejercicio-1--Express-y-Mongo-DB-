@@ -1,0 +1,9 @@
+npm i express mongoose
+npm i -g nodemon     
+npm install dotenv 
+npm run dev         
+Para iniciar mongo db se debe tener mongodb shell y mongodb compos
+Se debe iniciar primero y luego ya funciona
+
+docker-compose up --build
+Construir el docker compose
