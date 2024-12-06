@@ -102,6 +102,7 @@ app.patch("/:todoId", async (req,res) => {
 
 })
 
+//Eliminar por ID
 app.delete("/delete/:todoId", async (req, res) => {
 
     const TodoId = req.params.todoId;
