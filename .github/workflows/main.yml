@@ -78,18 +78,8 @@ jobs:
               echo "Docker ya está instalado."
             fi
 
-            # Instalar Docker Compose si no está instalado
-            if ! command -v docker-compose &> /dev/null; then
-              echo "Docker Compose no encontrado. Instalando..."
-              sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-              sudo chmod +x /usr/local/bin/docker-compose
-            else
-              echo "Docker Compose ya está instalado."
-            fi
-
             # Verificar las versiones de Docker y Docker Compose
             docker --version
-            docker-compose --version
 
             # Descargar las imágenes desde Docker Hub
             docker pull mongo:latest
