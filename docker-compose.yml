@@ -16,7 +16,7 @@ services:
   app:
     build: .
     container_name: node-app
-    image: sebastianwebapp/ejercicio_2_backend:latest
+    image: sebastianwebapp/Express_Mongo:latest
     ports:
       - "4000:4000"  # Mapeo del puerto 4000
     depends_on:
