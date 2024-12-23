@@ -95,7 +95,6 @@ jobs:
               # Iniciar el contenedor de la aplicación con el archivo .env
               docker run -d --name node-app \
                 --network app-network \
-                --env-file /path/to/.env \
                 -p 4000:4000 \
                 sebastianwebapp/express_mongo:latest
   
