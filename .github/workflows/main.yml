@@ -68,6 +68,12 @@ jobs:
             key: ${{ secrets.EC2_SSH_KEY }}
             script: |
               echo "Conectando a ${{ secrets.HOST_DNS }} para redeploy"
+
+
+              
+                # Descargar las imágenes desde Docker Hub
+              docker pull mongo:latest
+              docker pull sebastianwebapp/express_mongo:latest
   
               # Asegurarse de tener la red y volumen creados
               docker network create app-network || true
