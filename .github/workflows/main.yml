@@ -55,3 +55,43 @@ jobs:
 
           # Subir las imágenes a Docker Hub
           docker-compose -f docker-compose.yml push
+
+  deploy-to-ec2:
+      needs: build-and-push
+      runs-on: ubuntu-latest
+      steps:
+        - name: Trigger redeploy on EC2
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.HOST_DNS }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.EC2_SSH_KEY }}
+            script: |
+              echo "Conectando a ${{ secrets.HOST_DNS }} para redeploy"
+  
+              # Asegurarse de tener la red y volumen creados
+              docker network create app-network || true
+              docker volume create mongodb_data || true
+  
+              # Detener y eliminar contenedores antiguos
+              docker stop node-app || true
+              docker rm node-app || true
+              docker stop mongo || true
+              docker rm mongo || true
+  
+              # Iniciar el contenedor de MongoDB
+              docker run -d --name mongo \
+                --network app-network \
+                -v mongodb_data:/data/db \
+                -p 27017:27017 \
+                mongo:latest
+  
+              # Iniciar el contenedor de la aplicación con el archivo .env
+              docker run -d --name node-app \
+                --network app-network \
+                --env-file /path/to/.env \
+                -p 4000:4000 \
+                sebastianwebapp/express_mongo:latest
+  
+              echo "Despliegue completado exitosamente"
+              docker ps
