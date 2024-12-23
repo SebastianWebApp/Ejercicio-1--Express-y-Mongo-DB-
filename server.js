@@ -7,7 +7,7 @@ import {Todo} from "./modules/todo.model.js";
 dotenv.config();
 
 const app = express();
-const port = process.env.port || 4000;
+const port = 4000;
 
 //middReware
 app.use(express.json());
